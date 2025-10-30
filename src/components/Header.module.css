@@ -1,0 +1,156 @@
+.header {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 12px 16px 0 16px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+}
+
+/* ===== 첫 번째 행: 로고 + 로그인/회원가입/마이페이지 ===== */
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: #7FAD39;
+}
+
+/* 로그인/회원가입/마이페이지 */
+.userNav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.walletButton {
+  display: flex;
+  align-items: center;
+}
+
+.userNav a {
+  text-decoration: none;
+  color: #555;
+  font-size: 16px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: color 0.2s ease;
+}
+
+/* 회원가입 버튼: 회색 박스 */
+.userNav a:nth-of-type(2) {
+  background: #f1f3f5;
+}
+
+.userNav a:hover {
+  color: #222;
+  font-weight: bold;
+}
+
+/* 로그아웃 버튼 */
+.logoutBtn {
+  background: white;
+  color: #555;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+  background: #f5f5f5;
+  border-color: #bbb;
+  color: #222;
+}
+
+/* 사용자 박스 스타일 (로그인 후) */
+.userBox {
+  background: #7FAD39 !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 4px rgba(127, 173, 57, 0.2);
+  transition: all 0.2s ease !important;
+}
+
+.userBox:hover {
+  background: #6a9530 !important;
+  box-shadow: 0 4px 8px rgba(127, 173, 57, 0.3);
+  transform: translateY(-1px);
+}
+
+.userBox strong {
+  font-weight: 700;
+}
+
+/* ===== 구분선 ===== */
+.divider {
+  height: 1px;
+  background: #e5e7eb;
+  margin: 10px 0 6px;
+}
+
+/* ===== 두 번째 행: 메뉴바 ===== */
+.mainNav {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 45px;
+  padding-bottom: 6px;
+}
+
+/* --- 굵고 위쪽이 진한 그라데이션 선 --- */
+.mainNav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px; /* 선 두께 */
+  background: linear-gradient(
+    to bottom,
+    rgba(200, 200, 200, 0.8) 0%,
+    rgba(229, 231, 235, 0.6) 50%,
+    rgba(229, 231, 235, 0.1) 100%
+  );
+}
+
+/* 메뉴바 */
+.mainNav a {
+  position: relative;
+  text-decoration: none;
+  color: #555;
+  font-size: 16px;
+  padding: 8px 2px;
+  line-height: 2;
+  transition: color 0.2s ease;
+}
+.mainNav a:hover {
+  color: #222;
+  font-weight: bold;
+}
+
+/* 활성 메뉴 (pathname 일치 시) */
+.mainNav a[data-active="true"] {
+  color: #2db400;
+}
+/* 초록색 밑줄 */
+.mainNav a[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: #2db400;
+}

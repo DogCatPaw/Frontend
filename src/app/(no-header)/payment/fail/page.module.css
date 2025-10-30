@@ -1,0 +1,160 @@
+/* Container */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #fee 0%, #fdd 100%);
+}
+
+/* Card */
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Icon Container */
+.iconContainer {
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.errorIcon {
+  color: #dc2626;
+}
+
+/* Title */
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 24px;
+}
+
+/* Error Box */
+.errorBox {
+  background: #fee;
+  border: 1px solid #fca5a5;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.errorMessage {
+  font-size: 16px;
+  color: #dc2626;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.errorCode {
+  font-size: 13px;
+  color: #991b1b;
+  margin: 0;
+  font-family: monospace;
+}
+
+/* Info */
+.info {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.info h3 {
+  margin: 0 0 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+}
+
+.info ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.8;
+}
+
+.info li {
+  margin-bottom: 4px;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.primaryButton {
+  width: 100%;
+  background: #7fad39;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton:hover {
+  background: #6a9530;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(127, 173, 57, 0.3);
+}
+
+.secondaryButton {
+  width: 100%;
+  background: white;
+  color: #666;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.secondaryButton:hover {
+  background: #f9fafb;
+  border-color: #7fad39;
+  color: #7fad39;
+}
+
+/* Help Text */
+.helpText {
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.helpText p {
+  margin: 0;
+  font-size: 13px;
+  color: #999;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    padding: 32px 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+}

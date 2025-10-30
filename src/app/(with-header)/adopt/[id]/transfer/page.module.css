@@ -1,0 +1,297 @@
+/* Container */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.content {
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0 0 40px 0;
+  text-align: center;
+}
+
+/* Progress Bar */
+.progressBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.progressBar::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: #e5e7eb;
+  z-index: 0;
+}
+
+.progressStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+  flex: 1;
+}
+
+.progressCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.progressStepActive .progressCircle {
+  background: #7fad39;
+  color: white;
+  box-shadow: 0 0 0 4px rgba(127, 173, 57, 0.2);
+}
+
+.progressStepCompleted .progressCircle {
+  background: #22c55e;
+  color: white;
+}
+
+.progressLabel {
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.progressStepActive .progressLabel {
+  color: #7fad39;
+}
+
+/* Step Card */
+.stepCard {
+  background: #f9fafb;
+  border-radius: 12px;
+  padding: 32px;
+  margin-top: 24px;
+}
+
+.stepTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+}
+
+.stepDescription {
+  font-size: 16px;
+  color: #64748b;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+/* Boxes */
+.infoBox,
+.successBox,
+.errorBox {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.infoBox {
+  border: 1px solid #e5e7eb;
+}
+
+.infoBox p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+.infoBox strong {
+  color: #1e293b;
+}
+
+.successBox {
+  border: 1px solid #22c55e;
+  background: #f0fdf4;
+}
+
+.successBox p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #166534;
+}
+
+.errorBox {
+  border: 1px solid #ef4444;
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+/* Loader */
+.loader {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #7fad39;
+  font-weight: 600;
+}
+
+/* Buttons */
+.primaryButton {
+  width: 100%;
+  padding: 14px 24px;
+  background: #7fad39;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: #6a9630;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(127, 173, 57, 0.3);
+}
+
+.primaryButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cancelButton {
+  width: 100%;
+  padding: 14px 24px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 12px;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.cancelButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* File Upload */
+.uploadBox {
+  margin-bottom: 20px;
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadLabel {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  border: 2px dashed #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.uploadLabel:hover {
+  border-color: #7fad39;
+  background: #f9fafb;
+}
+
+.uploadPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #9ca3af;
+}
+
+.uploadPlaceholder br + text {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .progressBar::before {
+    display: none;
+  }
+
+  .progressStep {
+    flex-direction: row;
+    gap: 4px;
+  }
+
+  .progressCircle {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .progressLabel {
+    font-size: 10px;
+  }
+}

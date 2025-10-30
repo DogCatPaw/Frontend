@@ -1,0 +1,871 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  box-sizing: border-box;
+  color: #1a1a1a;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR",
+    Arial, "Apple SD Gothic Neo", sans-serif;
+}
+
+/* ====== 상단 박스 ====== */
+.hero {
+  background-color: #e7f8eb;
+  border-radius: 14px;
+  padding: 60px 28px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.02) inset;
+  margin-bottom: 36px;
+}
+
+.heroInner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.35;
+  color: #7fad39;
+  letter-spacing: 1.5px;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.65;
+  color: #3f4a3f;
+}
+
+.didButton {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 22px;
+  background-color: #7fad39;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.03);
+  transition: transform 0.06s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.didButton:hover {
+  background-color: #279745;
+  box-shadow: 0 4px 10px rgba(39, 151, 69, 0.22);
+  font-weight: bold;
+}
+
+.didButton:active {
+  transform: translateY(1px);
+}
+
+/* ===== 실시간 현황 섹션 ===== */
+.statsSection {
+  margin-top: 6px;
+}
+
+.statsHeading {
+  margin: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #7fad39;
+}
+
+/* 통계 카드 그리드 */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+/* 카드 */
+.statCard {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 22px 18px;
+  text-align: center;
+  border: 1px solid #f0f2f4;
+  box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 라벨 */
+.statLabel {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+  color: #5c6660;
+  font-weight: 500;
+}
+
+/* 숫자 */
+.statNumber {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a7f3a;
+  letter-spacing: -0.5px;
+}
+
+/* =============== 각 공고별 공통 요소 =============== */
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.moreButton {
+  background: none;
+  border: 1px solid rgb(211, 210, 210);
+  padding: 6px 10px;
+  border-radius: 10px;
+  color: #666;
+  font-size: 15px;
+  text-decoration: none;
+  cursor: pointer;
+}
+.moreButton:hover {
+  /* text-decoration: underline; */
+  font-weight: bold;
+}
+
+.noImage {
+  width: 100%;
+  height: 100%;
+  background: #eef2f7;
+  color: #bbb;
+  font-size: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+
+/* =============== 입양 공고 섹션 =============== */
+.adoptSection {
+  margin-top: 36px;
+}
+
+.adoptHeading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #7fad39;
+}
+
+/* 카드 전체 영역 */
+.cardList {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* 개별 카드 */
+.card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  flex: 1;
+  min-width: 320px;
+  max-width: 420px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: #33b864;
+  color: white;
+  font-size: 14px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* 이미지 */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.petImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 본문 */
+.cardContent {
+  padding: 16px 20px;
+  flex: 1;
+}
+
+.petName {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.petInfo {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+.did {
+  font-size: 13px;
+  color: #777;
+}
+
+.shelter {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+/* 버튼 */
+.inquireButton {
+  background-color: #6ea243;
+  color: white;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+  margin: 10px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.inquireButton:hover {
+  background-color: #5a8c37;
+  font-weight: bold;
+}
+
+/* ================== 마감 임박 후원 공고 ================== */
+.donationSection {
+  margin-top: 36px;
+}
+
+.donationHeading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #7fad39;
+}
+
+.donationList {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.donationCard {
+  flex: 1;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+.status {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #e43e3e;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.dday {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #e43e3e;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.donationImage {
+  width: 100%;
+  height: 220px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.donationImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.donationInfo {
+  padding: 14px 16px 16px 16px;
+}
+
+.donationTitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+.donationAmount {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.percent {
+  float: right;
+  color: #333;
+}
+
+.progressBar {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  height: 6px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progressFill {
+  background-color: #d33;
+  height: 100%;
+  transition: width 0.4s ease;
+}
+
+.goal {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.bottomInfo {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #666;
+}
+
+/* ============== 인기 스토리 ============== */
+.storySection {
+  margin-top: 36px;
+}
+
+.storyHeading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #7fad39;
+}
+
+.storyGrid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.storyCard {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+/* 카드 상단: 작성자 뱃지 + 이름 */
+.storyCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 16px 16px;
+}
+
+.authorBadge {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #e5e7eb; /* 연한 회색 원형 배경 */
+  color: #111827;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 35px;
+  text-align: center;
+  display: inline-block;
+}
+.authorName {
+  font-size: 16px;
+  color: #374151;
+}
+
+/* 썸네일 */
+.storyThumb {
+  width: 100%;
+  height: 216px; /* 16:9 느낌 */
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.storyImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 본문 */
+.storyBody {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.storyTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+.storyExcerpt {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #6b7280;
+  margin: 0;
+  display: -webkit-box; /* 2줄 말줄임 */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 하단 메타 + 좋아요/댓글 */
+.storyFooter {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.petMeta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.engage {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 12px;
+}
+.icon {
+  font-size: 12px;
+  line-height: 1;
+}
+.count {
+  font-size: 12px;
+}
+.dot {
+  color: #9ca3af;
+  margin: 0 2px;
+}
+
+/* ============== 인기 입양 후기 ============== */
+.reviewSection {
+  margin-top: 36px;
+}
+
+.reviewHeading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #7fad39;
+}
+
+.reviewGrid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.reviewCard {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 320px;
+  max-width: 420px;
+}
+
+/* 카드 상단: 작성자 뱃지 + 이름 */
+.reviewCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px 16px 16px;
+}
+
+.reviewauthorBadge {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #e5e7eb; /* 연한 회색 원형 배경 */
+  color: #111827;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 35px;
+  text-align: center;
+  display: inline-block;
+}
+.reviewauthorName {
+  font-size: 16px;
+  color: #374151;
+}
+
+/* 썸네일 */
+.reviewThumb {
+  width: 100%;
+  height: 216px; /* 16:9 느낌 */
+  background: #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reviewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 본문 */
+.reviewBody {
+  padding: 12px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.reviewTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+.reviewExcerpt {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #6b7280;
+  margin: 0;
+  display: -webkit-box; /* 2줄 말줄임 */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 하단 메타 + 좋아요/댓글 */
+.reviewFooter {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reviewpetMeta {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.reviewengage {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 12px;
+}
+.icon {
+  font-size: 12px;
+  line-height: 1;
+}
+.reviewcount {
+  font-size: 12px;
+}
+.dot {
+  color: #9ca3af;
+  margin: 0 2px;
+}
+
+/* ============== 공통 섹션 스타일 ============== */
+.section {
+  margin-top: 48px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.moreLink {
+  color: #7fad39;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.moreLink:hover {
+  color: #5a8c37;
+  text-decoration: underline;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 40px 0;
+}
+
+.stat {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.statNumber {
+  font-size: 36px;
+  font-weight: 700;
+  color: #7fad39;
+  margin-bottom: 8px;
+}
+
+.statLabel {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ============== 카드 스타일 ============== */
+.card {
+  display: block;
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background: #f3f4f6;
+}
+
+.cardImage {
+  object-fit: cover;
+}
+
+.cardContent {
+  padding: 16px;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardInfo {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 4px 0;
+}
+
+.cardStatus {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background: #e0f2fe;
+  color: #075985;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 12px;
+}
+
+.cardProgress {
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 4px 0;
+  font-weight: 600;
+}
+
+.cardMeta {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.emptyMessage {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #9ca3af;
+  font-size: 15px;
+}
+
+/* ============== 스켈레톤 로딩 스타일 ============== */
+.cardSkeleton {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skeletonImage {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+.skeletonContent {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeletonTitle {
+  height: 20px;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+  width: 70%;
+}
+
+.skeletonText {
+  height: 16px;
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeletonText:last-child {
+  width: 50%;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ============== 반응형 ============== */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+}

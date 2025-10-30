@@ -1,0 +1,540 @@
+/* ===== 공통 레이아웃 ===== */
+.container {
+  max-width: 1280px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR",
+    Arial, "Apple SD Gothic Neo", sans-serif;
+}
+
+.containerBox {
+  height: calc(50vh - 16px);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+
+  /* 좌측 리스트 + 우측 채팅 */
+  display: grid;
+  grid-template-columns: 380px 1fr;
+}
+
+/* ===== 좌측: 스레드 리스트 ===== */
+.sidebar {
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+}
+
+.sidebarHeader {
+  padding: 16px 20px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.loadingRooms,
+.emptyRooms {
+  padding: 40px 20px;
+  text-align: center;
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.threadList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-y: auto;
+}
+
+.threadItem {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 13px;
+  align-items: center;
+  padding: 20px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.2s ease;
+}
+
+.threadItem:hover {
+  background: #22c55e;
+}
+
+.active {
+  background: #22c55e13;
+  border-left-color: #22c55e;
+}
+
+.threadBadge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  color: #374151;
+}
+
+.threadMeta {
+  min-width: 0;
+}
+
+.threadTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.timeAgo {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
+.threadPreview {
+  font-size: 13px;
+  color: #6b7280;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.unread {
+  background: #ef4444;
+  color: white;
+  font-size: 12px;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+/* ===== 우측: 채팅 영역 ===== */
+.chatPane {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  min-height: 0; /* 자식 스크롤 허용 */
+}
+
+/* 상단 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.headerTitle {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.headerStatus {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.statusConnected {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.statusDisconnected {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.ghostBtn {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.ghostBtn:hover {
+  background: #f9fafb;
+}
+
+/* 참여자 정보 */
+.participantInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+/* 입양 공고 카드 */
+.adoptionCard {
+  padding: 10px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.adoptionCardContent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.petProfileImage {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.adoptionInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.adoptionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.petNameTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.adoptionButtons {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.viewButton {
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #6b7280;
+  background: #f3f4f6;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.viewButton:hover {
+  background: #e5e7eb;
+}
+
+.adoptButton {
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  background: #7fad39;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.adoptButton:hover {
+  background: #6a9630;
+  transform: translateY(-1px);
+}
+
+.petDetails {
+  font-size: 11px;
+  color: #6b7280;
+  margin: 0 0 1px 0;
+}
+
+.petDid {
+  font-size: 10px;
+  color: #9ca3af;
+  margin: 0 0 2px 0;
+}
+
+.statusBadgeActive {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.participantLabel {
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+}
+
+.participants {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.participant {
+  padding: 4px 12px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* 프로필 카드 */
+.profileCard {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  padding: 12px 18px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #22c55e13;
+}
+
+.petThumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.petInfo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 6px 10px;
+}
+
+.petName {
+  font-weight: 700;
+}
+
+.petSub,
+.petDid {
+  font-size: 12px;
+  color: #6b7280;
+  grid-column: 1 / -1;
+}
+
+.statusBadge {
+  justify-self: end;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.statusActive {
+  background: #e0f2fe;
+  color: #075985;
+}
+.statusAdopting {
+  background: #fef3c7;
+  color: #92400e;
+}
+.statusDone {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+/* 메시지 리스트 */
+.messages {
+  padding: 14px 18px 14px;
+  overflow-y: auto;
+  background: #ffffff;
+  flex: 1;
+  min-height: 0; /* 자식 스크롤 허용 */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* 메시지를 아래쪽에 붙임 */
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.containerThem {
+  align-items: flex-start;
+}
+
+.containerMe {
+  align-items: flex-end;
+}
+
+.senderName {
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+  margin-left: 4px;
+}
+
+.bubbleRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.bubble {
+  max-width: min(72ch, 80%);
+  padding: 10px 12px;
+  border-radius: 14px;
+  line-height: 1.35;
+  word-break: break-word;
+}
+
+.them {
+  background: #f3f4f6;
+  color: #111827;
+  border-top-left-radius: 4px;
+}
+
+.me {
+  background: #22c55e;
+  color: white;
+  border-top-right-radius: 4px;
+}
+
+.bubbleText {
+  font-size: 14px;
+}
+
+.time {
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.readStatus {
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.emptyMessages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #9ca3af;
+  font-size: 15px;
+}
+
+/* 입력 바 */
+.inputBar {
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  padding: 12px 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.textInput {
+  flex: 1;
+  height: 40px;
+  padding: 0 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  font-size: 14px;
+}
+.textInput:focus {
+  border-color: #7fad39;
+  box-shadow: 0 0 0 3px rgba(127, 173, 57, 0.1);
+}
+
+.sendBtn {
+  border: none;
+  border-radius: 10px;
+  background: #7fad39;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0 20px;
+  font-size: 14px;
+  min-width: 70px;
+  height: 40px;
+  transition: all 0.2s ease;
+}
+.sendBtn:hover {
+  background: #6a9630;
+  transform: translateY(-1px);
+}
+.sendBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 채팅방 선택 전 */
+.noRoomSelected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 16px;
+  color: #9ca3af;
+}
+
+/* 로딩 및 에러 상태 */
+.loading,
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+.loading {
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.error {
+  color: #ef4444;
+}
+
+.error h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.error p {
+  font-size: 15px;
+  margin-bottom: 20px;
+  color: #374151;
+}
+
+.error button {
+  padding: 10px 20px;
+  background: #7fad39;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.error button:hover {
+  background-color: #6a9630;
+}

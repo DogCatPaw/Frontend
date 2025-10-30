@@ -1,0 +1,50 @@
+/* 색상은 첨부 이미지에서 뽑은 값과 가깝게 설정 */
+:root{
+    --line-1: #DEEAD4;   /* 상단 라인(연녹) */
+    --line-2: #ECF3E6;   /* 라인 위쪽 아주 연한 녹 */
+    --text-green: #185333; /* 본문 텍스트(짙은 녹) */
+}
+
+.site-footer{
+    position: relative;
+    /* background: #fff; */
+    color: var(--text-green);
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1.6;
+}
+
+/* 상단 1px 라인 + 아래로 사라지는 연한 그라데이션 */
+.site-footer::before{
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 16px;
+    background:
+        linear-gradient(
+        to bottom,
+        var(--line-2) 0,
+        var(--line-2) 1px,   /* 라인 윗면 */
+        var(--line-1) 1px,   /* 실제 라인 */
+        rgba(236,243,230,0.65) 6px,
+        rgba(236,243,230,0.20) 12px,
+        rgba(236,243,230,0) 16px
+        );
+    pointer-events: none;
+}
+
+.footer-inner{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 20px 16px 22px; /* 여백은 이미지 느낌에 맞게 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.site-footer p{
+    margin: 0;
+    letter-spacing: -0.01em;
+    white-space: nowrap; /* 한 줄 유지가 필요하면 사용, 줄바꿈 허용하려면 제거 */
+}

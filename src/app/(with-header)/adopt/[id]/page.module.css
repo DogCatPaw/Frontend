@@ -1,0 +1,267 @@
+/* app/adopt/[id]/page.module.css */
+
+/* ============ Layout ============ */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.adoptButton {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: #4b5563;
+  text-decoration: none;
+  border: 1px solid rgb(211, 211, 211);
+  border-radius: 10px;
+  padding: 7px 15px;
+}
+.adoptButton:hover {
+  text-decoration: underline;
+}
+
+.contentWrap {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* ============ Left Pane (Images) ============ */
+.leftPane {
+  min-width: 0;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+}
+
+.heroImg {
+  object-fit: cover;
+}
+
+.badge {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  background: #7fad39; /* 기본: 입양 가능/진행 */
+}
+
+/* 썸네일 리스트 */
+.thumbList {
+  margin-top: 12px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.thumbItem {
+  list-style: none;
+}
+
+.thumbBtn {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.thumbBtn:hover {
+  transform: translateY(-1px);
+  border-color: #d1d5db;
+}
+.thumbActive {
+  border-color: #7fad39;
+}
+
+.thumbImg {
+  object-fit: cover;
+}
+
+/* ============ Right Pane (Details) ============ */
+.rightPane {
+  min-width: 0;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 4px 0 16px;
+  color: #111827;
+  word-break: keep-all;
+}
+
+/* 정보 그리드 */
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+  margin-bottom: 16px;
+}
+
+.metaItem {
+  background: #f9fafb;
+  /* border: 1px solid #e5e7eb; */
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.metaLabel {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.metaValue {
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+  word-break: break-all;
+  margin: 0;
+}
+
+/* 메모/소개 박스 */
+.memoBox {
+  margin-top: 4px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f3f4f6;
+  color: #374151;
+  line-height: 1.6;
+  border: 1px solid #e5e7eb;
+}
+
+/* 보호소 카드 */
+.shelterCard {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.shelterInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.shelterName {
+  font-weight: 800;
+  color: #111827;
+}
+
+.shelterRegion {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.shelterBtn {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  color: #374151;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+  text-decoration: none;
+}
+.shelterBtn:hover {
+  background: #f3f4f6;
+  border-color: #cbd5e1;
+}
+
+/* CTA 버튼들 */
+.actions {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* Link도 버튼처럼 보이게 */
+.primaryBtn,
+.secondaryBtn {
+  height: 48px;
+  border-radius: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+/* 문의하기 */
+.primaryBtn {
+  border: none;
+  background: #7fad39;
+  color: #ffffff;
+  box-shadow: 0 1px 0 rgba(16, 185, 129, 0.25);
+}
+.primaryBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.25);
+}
+
+/* 완료하기 */
+.secondaryBtn {
+  border: none;
+  background: #7fad39;
+  color: #ffffff;
+  font-size: 17px;
+  box-shadow: 0 1px 0 rgba(16, 185, 129, 0.25);
+}
+.secondaryBtn:hover {
+  transform: translateY(-1px);
+  border-color: #cbd5e1;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 960px) {
+  .contentWrap {
+    grid-template-columns: 1fr;
+  }
+  .actions {
+    grid-template-columns: 1fr;
+  }
+  .title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .metaGrid {
+    grid-template-columns: 1fr;
+  }
+  .thumbList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

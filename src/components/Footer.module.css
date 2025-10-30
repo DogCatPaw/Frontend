@@ -1,0 +1,45 @@
+.siteFooter {
+  position: relative;
+  background: #fff;
+  color: #185333; /* 짙은 녹색 텍스트 */
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.6;
+  margin-top: 30px;
+}
+
+/* 상단 연녹 라인 + 아래로 사라지는 그라데이션 */
+.siteFooter::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 16px;
+  background: linear-gradient(
+    to bottom,
+    #ecf3e6 0,
+    /* 라인 위쪽 아주 연한 녹 */ #ecf3e6 1px,
+    /* 라인 윗면 */ #deead4 1px,
+    /* 실제 1px 라인(연녹) */ rgba(236, 243, 230, 0.65) 6px,
+    rgba(236, 243, 230, 0.2) 12px,
+    rgba(236, 243, 230, 0) 16px
+  );
+  pointer-events: none;
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 16px 22px; /* 이미지 느낌과 유사한 여백 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.inner p {
+  margin: 0;
+  letter-spacing: -0.01em;
+  white-space: nowrap; /* 한 줄 유지 필요 없으면 제거 */
+}

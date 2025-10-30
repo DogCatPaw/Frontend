@@ -9,6 +9,11 @@
 # testing
 /coverage
 
+# ai
+.claude
+.cursor
+.vscode
+
 # next.js
 /.next/
 /out/
@@ -26,6 +31,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
 
 # vercel
@@ -34,3 +40,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# kubernetes secrets (IMPORTANT: Never commit secrets!)
+k8s/secret.yaml
+k8s/*secret*.yaml

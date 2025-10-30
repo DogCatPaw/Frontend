@@ -1,0 +1,284 @@
+.container {
+  max-width: 1280px;
+  margin: 0 auto 10px;
+  padding: 60px 20px;
+}
+
+/* 홈으로 돌아가기 버튼 */
+.homeButton {
+  text-decoration: none;
+  color: black;
+  border: 1px solid rgb(224, 222, 222);
+  border-radius: 10px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.homeButton:hover {
+  font-weight: bold;
+  color: #7fad39;
+}
+
+/* 제목 + 설명 */
+.title {
+  text-align: center;
+  color: #7fad39;
+  font-size: 50px;
+  font-weight: 700; /* 100px → 숫자 단위 오류 수정 */
+  line-height: 1.2;
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+.titleinfo {
+  text-align: center;
+  font-size: 20px;
+  color: grey;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+/* 공통 */
+.highlights_red {
+  color: #e53935;
+  font-weight: 600;
+}
+.highlights_green {
+  color: #7fad39;
+}
+
+.details {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 20px;
+  line-height: 1.65;
+}
+
+/* 동물등록정보에 대해 알고 계신가요? */
+.info1 {
+  background-color: #eff6ff;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+}
+.info1 > h3 {
+  color: #7fad39;
+  font-size: 23px;
+  margin-bottom: 12px;
+}
+
+/* 번호 리스트 */
+.numberList {
+  margin: 10px 0 18px 20px;
+  padding-left: 18px;
+  line-height: 1.6;
+}
+.numberList li {
+  list-style: decimal;
+  margin: 6px 0;
+}
+
+/* 멍냥포는 생각했습니다. */
+.info2 {
+  background-color: #e7f8eb;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+}
+.info2 > h3 {
+  color: #7fad39;
+  font-size: 23px;
+}
+.info2 > h4 {
+  color: #7fad39;
+  text-align: center;
+  font-size: 19px;
+  margin: 6px 0 10px;
+}
+.info2 > p {
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* DID란 무엇인가요? */
+.info3 {
+  background-color: #faf5ff;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+}
+.info3 > h3 {
+  color: #7fad39;
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+.info3 p {
+  line-height: 1.65;
+}
+
+/* 멍냥Paw의 DID는 이렇게 작동합니다 */
+.info4 {
+  background-color: #fff7ed;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+}
+.info4 > h3 {
+  color: #7fad39;
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+.info4 p {
+  line-height: 1.65;
+}
+
+/* 4가지 요소 */
+.info5 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2열 구조 */
+  gap: 24px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.info5_detail {
+  background-color: #fff;
+  padding: 14px 16px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+}
+.info5_detail p {
+  line-height: 1.65;
+}
+
+.icon_title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.icon {
+  background-color: #e7f8eb;
+  border-radius: 50%;
+  padding: 10px;
+  font-size: 30px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+}
+.icon_title > h3 {
+  color: #7fad39;
+  font-size: 21px;
+}
+
+/* DID 예시 */
+.info6 {
+  background-color: #e7f8eb;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+}
+.info6 > h3 {
+  color: #7fad39;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 14px;
+}
+.info6_ex {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+}
+.info6_ex > p {
+  font-family: "Courier New", Courier, monospace;
+  color: #6b8e23;
+  font-weight: 600;
+  letter-spacing: 1px; /* 글자 간격 */
+  text-align: center;
+  font-size: 20px;
+  margin: 8px 0 16px;
+}
+.info6_ex hr {
+  border: 0;
+  border-top: 1px dashed #cbd5e1;
+  margin: 10px 0 18px;
+}
+.info6_category {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 20px;
+}
+.info6_category > div {
+  text-align: center;
+}
+.info6_highlight {
+  font-family: "Courier New", Courier, monospace;
+  color: #6b8e23;
+  font-weight: 700;
+}
+
+/* 어떻게 참여할 수 있나요? */
+.info7 {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px 30px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+.info7 > h3 {
+  color: #7fad39;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.info7_ex {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3칸 동일 너비 */
+  gap: 24px;
+}
+.info7_ex > div {
+  text-align: center;
+}
+.info7_logo {
+  background-color: #e7f8eb;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: inline-flex; /* 수평/수직 중앙 정렬 */
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin: 0 auto 8px;
+}
+.info7_highlight {
+  font-size: 18px;
+  color: #7fad39;
+  font-weight: 700;
+  margin: 6px 0 4px;
+}
+
+/* DID 발급하러 가기 */
+.DID_submit {
+  text-align: center;
+  margin-top: 10px;
+}
+.DID_button {
+  background-color: #7fad39;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 6px 14px rgba(127, 173, 57, 0.28);
+}
+.DID_button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(127, 173, 57, 0.35);
+}

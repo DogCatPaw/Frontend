@@ -1,0 +1,35 @@
+.container {
+  width: 236px;           /* 이미지 예시 폭 */
+  background: #fff;
+  border: 1px solid #e9edf3;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.body { padding: 12px; }
+
+.block {
+  background: #eef2f6;
+  border-radius: 8px;
+}
+
+/* 영역들 */
+.row { display: flex; justify-content: space-between; gap: 8px; }
+.pill { height: 12px; width: 45%; }
+
+/* 간단한 쉬머 효과 */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.shimmer::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 1.4s infinite;
+}
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}

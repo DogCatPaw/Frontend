@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: default
+data:
+  # API Configuration
+  NEXT_PUBLIC_API_BASE_URL: "http://petdid-netw-dogcatpaw-ap-4d87a-112091686-70fc68edac0a.kr.lb.naverncp.com"
+
+  # Blockchain Configuration
+  NEXT_PUBLIC_BESU_RPC_URL: "http://ing-besunetwork-besurpci-c2714-112134690-ab00043af5a6.kr.lb.naverncp.com"
+  NEXT_PUBLIC_BESU_WS_URL: "ws://besu-networ-besu-rpc-ext-43e7a-108790139-4b974a576079.kr.lb.naverncp.com:8546"
+  NEXT_PUBLIC_CHAIN_ID: "1337"
+
+  # Smart Contract Addresses
+  NEXT_PUBLIC_PET_DID_REGISTRY: "0x22BbF60B7B2f0dbB0B815c84E3C238a4566120c3"
+  NEXT_PUBLIC_GUARDIAN_REGISTRY: "0x9B3745F83E65668723fc32509799e61f1b57C5d3"
+  NEXT_PUBLIC_SHELTER_REGISTRY: "0x3Ace09BBA3b8507681146252d3Dd33cD4E2d4F63"
+
+  # WalletConnect Configuration
+  NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: "cab6b850e45d4bca425715d4cf096948"
+
+  # Toss Payments Configuration (Public Key)
+  NEXT_PUBLIC_TOSS_CLIENT_KEY: "test_ck_ORzdMaqN3wPB1JpjlYxgV5AkYXQG"
+
+  # Next.js Configuration
+  NODE_ENV: "production"
+  NEXT_TELEMETRY_DISABLED: "1"

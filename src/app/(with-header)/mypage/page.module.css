@@ -1,0 +1,771 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  min-height: 80vh;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: bold;
+  color: #7FAD39;
+  margin-bottom: 30px;
+}
+
+/* 로딩 */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  gap: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #7FAD39;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 프로필 카드 */
+.profileCard {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.profileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.profileInfo {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.userName {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.userEmail,
+.userPhone,
+.userAddress {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.joinBadge {
+  display: inline-block;
+  background: #7FAD39;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.editProfileBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.editProfileBtn:hover {
+  border-color: #7FAD39;
+  color: #7FAD39;
+}
+
+.editIcon {
+  font-size: 16px;
+}
+
+/* 탭 네비게이션 */
+.tabNav {
+  display: flex;
+  gap: 0;
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 4px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+  min-width: 100px;
+}
+
+.tabButton:hover {
+  color: #333;
+}
+
+.tabButton.active {
+  background: white;
+  color: #333;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 탭 컨텐츠 */
+.tabContent {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 400px;
+}
+
+.tabHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tabTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* 반려동물 등록 버튼 */
+.registerPetBtn {
+  background: #7FAD39;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.registerPetBtn:hover {
+  background: #6a9430;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.emptyState p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.emptyHint {
+  font-size: 13px !important;
+  color: #bbb !important;
+}
+
+/* 펫 리스트 */
+.petList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.petCard {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s;
+}
+
+.petCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.petAvatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7FAD39 0%, #6a9430 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  flex-shrink: 0;
+}
+
+.petImage {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #e0e0e0;
+}
+
+.petInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.petName {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0 0 6px 0;
+}
+
+.petSpecies {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 4px 0;
+}
+
+.petStats {
+  font-size: 12px;
+  color: #666;
+  margin: 4px 0;
+}
+
+.petDID {
+  font-size: 12px;
+  color: #999;
+  margin: 0 0 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.petDate {
+  font-size: 12px;
+  color: #aaa;
+  margin: 0;
+}
+
+.viewBtn {
+  padding: 8px 16px;
+  background: white;
+  border: 1px solid #7FAD39;
+  border-radius: 6px;
+  color: #7FAD39;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.viewBtn:hover {
+  background: #7FAD39;
+  color: white;
+}
+
+/* 후원 내역 탭 */
+.totalDonation {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.totalLabel {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 10px 0;
+}
+
+.totalAmount {
+  font-size: 36px;
+  font-weight: bold;
+  color: #7FAD39;
+  margin: 0;
+}
+
+/* 설정 탭 */
+.settingSection {
+  margin-bottom: 30px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  font-size: 20px;
+}
+
+.settingList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.settingItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  background: white;
+}
+
+.settingItem:last-child {
+  border-bottom: none;
+}
+
+.settingItem span {
+  font-size: 15px;
+  color: #333;
+}
+
+.settingItem input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: #7FAD39;
+}
+
+.settingButton {
+  width: 100%;
+  padding: 15px 20px;
+  background: white;
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.settingButton:last-child {
+  border-bottom: none;
+}
+
+.settingButton:hover {
+  background: #f9f9f9;
+}
+
+.settingButton.danger {
+  color: #ff4444;
+  font-weight: 600;
+}
+
+.settingButton.danger:hover {
+  background: #fff5f5;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .profileHeader {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .profileInfo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .editProfileBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tabNav {
+    padding: 2px;
+  }
+
+  .tabButton {
+    padding: 10px 12px;
+    font-size: 13px;
+    min-width: 80px;
+  }
+
+  .tabContent {
+    padding: 20px;
+  }
+
+  .tabHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .registerPetBtn {
+    width: 100%;
+  }
+
+  .totalAmount {
+    font-size: 28px;
+  }
+
+  .petList {
+    grid-template-columns: 1fr;
+  }
+
+  .petCard {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .petInfo {
+    text-align: center;
+  }
+
+  .viewBtn {
+    width: 100%;
+  }
+}
+
+/* =============== Donation Styles =============== */
+
+/* Bone Balance Card */
+.boneBalanceCard {
+  background: linear-gradient(135deg, #f0f9e8 0%, #e8f5d8 100%);
+  border: 2px solid #7fad39;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 30px;
+}
+
+.balanceHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.balanceTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.chargeBtn {
+  background: white;
+  color: #7fad39;
+  border: 1px solid #7fad39;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.chargeBtn:hover {
+  background: #7fad39;
+  color: white;
+}
+
+.balanceAmount {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.amount {
+  font-size: 48px;
+  font-weight: 700;
+  color: #7fad39;
+}
+
+.unit {
+  font-size: 24px;
+  color: #666;
+  margin-left: 8px;
+}
+
+.loadingText {
+  font-size: 18px;
+  color: #999;
+}
+
+.balanceInfo {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(127, 173, 57, 0.3);
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.infoLabel {
+  font-size: 13px;
+  color: #666;
+}
+
+.infoValue {
+  font-size: 18px;
+  font-weight: 600;
+  color: #7fad39;
+}
+
+/* Donation History Section */
+.donationHistorySection {
+  margin-top: 30px;
+}
+
+.donationList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.donationCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.donationCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: #7fad39;
+}
+
+.donationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.donationTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.donationStatus {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.donationStatus.active {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.donationStatus.achieved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.donationStatus.closed {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.donationInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.petName {
+  font-size: 14px;
+  color: #666;
+}
+
+.donationAmount {
+  font-size: 16px;
+  font-weight: 600;
+  color: #7fad39;
+}
+
+.donationDate {
+  font-size: 12px;
+  color: #999;
+}
+
+/* Empty State (Updated) */
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.emptyIcon {
+  font-size: 64px;
+  margin: 0 0 16px;
+}
+
+.emptyTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 8px;
+}
+
+.emptyDescription {
+  font-size: 14px;
+  color: #999;
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+
+.goToDonationBtn {
+  background: #7fad39;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.goToDonationBtn:hover {
+  background: #6a9530;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(127, 173, 57, 0.3);
+}
+
+/* Load More Section */
+.loadMoreSection {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.loadMoreBtn {
+  background: white;
+  color: #7fad39;
+  border: 2px solid #7fad39;
+  border-radius: 8px;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.loadMoreBtn:hover:not(:disabled) {
+  background: #7fad39;
+  color: white;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(127, 173, 57, 0.3);
+}
+
+.loadMoreBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .balanceAmount {
+    margin-bottom: 16px;
+  }
+
+  .amount {
+    font-size: 36px;
+  }
+
+  .unit {
+    font-size: 18px;
+  }
+
+  .balanceInfo {
+    gap: 20px;
+  }
+
+  .donationHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
