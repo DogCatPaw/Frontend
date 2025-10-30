@@ -1,6 +1,12 @@
 // src/lib/api/review/list.ts
 
 // ---- 서버 응답 타입(스웨거 기준) ----
+export type ServerTypeCode =
+  | "DAILY"
+  | "REVIEW"
+  | "ADOPTION"
+  | "DONATION"
+
 export type ServerBreedCode =
   | "MALTESE"
   | "POODLE"
@@ -24,8 +30,8 @@ export type ServerBreedCode =
   | "MIXED"
   | "OTHERS";
 
-export interface ServerReview {
-  reviewId: number;
+export interface ServerStory {
+  storyId: number;
   profileUrl: string;
   memberName: string;
   title: string;
@@ -38,36 +44,33 @@ export interface ServerReview {
   commentCount: number;
 }
 
-export interface GetReviewListResponse {
+export interface GetMyStoryResponse {
   isSuccess: boolean;
   status: string;
   code: string;
   message: string;
-  result: { reviews: ServerReview[]; nextCursor: number | null };
+  result: { stories: ServerStory[]; nextCursor: number | null };
 }
 
 // 쿼리 파라미터
-export interface GetReviewListParams {
-  keyword?: string;
-  cursorId?: number; // 스웨거: cursor
+export interface GetMyStoryParams {
+  cursor?: number; // 스웨거: cursor
   size?: number; // 기본 9
-  walletAddress?: string; // 지갑 주소 (필수)
+  type?: ServerTypeCode
 }
 
 // 호출 함수 (그대로 리턴)
-export async function getReviewList(params: GetReviewListParams = {}) {
-  const { size = 9, cursorId, keyword, walletAddress } = params;
+export async function getMystory(params: GetMyStoryParams = {}) {
+  const { size = 9, cursor, type } = params;
 
   const q = new URLSearchParams();
   q.set("size", String(size));
-  if (cursorId !== undefined && cursorId !== null)
-    q.set("cursorId", String(cursorId));
-  if (keyword !== undefined && keyword !== null)
-    q.set("keyword", String(keyword));
-  if (walletAddress)
-    q.set("walletAddress", walletAddress);
+  if (cursor !== undefined && cursor !== null)
+    q.set("cursor", String(cursor));
+  if (type !== undefined && type !== null)
+    q.set("type", String(type));
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/review/reviews?${q.toString()}`;
+  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/member/stories?${q.toString()}`;
 
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
@@ -80,7 +83,7 @@ export async function getReviewList(params: GetReviewListParams = {}) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
 
-  console.log("📤 [Review API] Fetching reviews with token:", accessToken ? "✓" : "✗");
+  console.log("📤 [Review API] Fetching myStory with token:", accessToken ? "✓" : "✗");
 
   const res = await fetch(url, {
     method: "GET",
@@ -93,16 +96,16 @@ export async function getReviewList(params: GetReviewListParams = {}) {
 
   if (!res.ok) {
     const text = await res.text().catch(() => "");
-    console.error("❌ [Review API] List error:", text);
-    throw new Error(`getReviewList 실패 (${res.status}) ${text}`);
+    console.error("❌ [MyStory API] List error:", text);
+    throw new Error(`getMyStory 실패 (${res.status}) ${text}`);
   }
 
-  const data: GetReviewListResponse = await res.json();
+  const data: GetMyStoryResponse = await res.json();
   console.log("📦 [Review API] Response data:", {
     isSuccess: data.isSuccess,
-    reviewCount: data.result?.reviews?.length || 0,
+    reviewCount: data.result?.stories?.length || 0,
     nextCursor: data.result?.nextCursor,
-    sampleReview: data.result?.reviews?.[0] || null
+    sampleReview: data.result?.stories?.[0] || null
   });
 
   return data;

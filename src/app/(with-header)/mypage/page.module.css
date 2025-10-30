@@ -769,3 +769,96 @@
     gap: 8px;
   }
 }
+
+/* ====================== 내 일지 탭 ====================== */
+.journalsTab {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.storyList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.storyItem {
+  background: #fafafa;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.storyItem:hover {
+  background: #f0f9e8;
+  border-color: #7FAD39;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(127, 173, 57, 0.15);
+}
+
+.storyItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.storyItemTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+  flex: 1;
+}
+
+.storyItemDate {
+  font-size: 14px;
+  color: #666;
+  white-space: nowrap;
+  margin-left: 16px;
+}
+
+.storyItemFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.storyItemStats {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.statItem {
+  font-size: 14px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.typeFilter {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.typeFilter:hover {
+  border-color: #7FAD39;
+}
+
+.typeFilter:focus {
+  outline: none;
+  border-color: #7FAD39;
+  box-shadow: 0 0 0 3px rgba(127, 173, 57, 0.1);
+}

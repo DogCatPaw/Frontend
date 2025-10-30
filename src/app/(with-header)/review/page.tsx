@@ -4,11 +4,13 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 import { getReviewList, type ServerReview } from "@/lib/api/review/list";
 import { postReview } from "@/lib/api/review/post";
+import { deleteReview } from "@/lib/api/review/delete";
 import { getPet, type ServerPet } from "@/lib/api/pet/pet";
 import { handleImagesUpload } from "@/lib/utils/upload";
-import { getAccessToken } from "@/lib/api/auth";
+import { getAccessToken, getStoredWalletAddress } from "@/lib/api/auth";
 
 // ==================== 이미지 src 정규화 유틸 ====================
 function pickFirst<T>(v: T | T[] | null | undefined): T | null {
@@ -91,9 +93,13 @@ function getBreedLabel(obj: any): string {
 
 export default function Review() {
   const router = useRouter();
+  const { address } = useAccount();
 
   // 검색
   const [keyword, setKeyword] = useState("");
+
+  // 내 글 보기 필터
+  const [showMyReviews, setShowMyReviews] = useState(false);
 
   // ============================= API =============================
   const [apiItems, setApiItems] = useState<ServerReview[]>([]);
@@ -115,10 +121,31 @@ export default function Review() {
       // 해당 페이지의 커서 가져오기
       const cursor = pageCursors.get(page) ?? null;
 
+      // 내 글 보기일 때 walletAddress 가져오기
+      let walletAddress: string | undefined = undefined;
+      if (showMyReviews) {
+        walletAddress = getStoredWalletAddress()?.toLowerCase();
+        if (!walletAddress) {
+          alert("로그인이 필요합니다!");
+          setShowMyReviews(false);
+          router.push("/login");
+          return;
+        }
+      }
+
+      console.log("📤 [Review Page] Fetching page:", page, "cursor:", cursor, "keyword:", keyword, "walletAddress:", walletAddress);
+
       const res = await getReviewList({
         size: 9,
         cursorId: cursor ?? undefined,
         keyword: keyword.trim() || undefined,
+        walletAddress: walletAddress,
+      });
+
+      console.log("✅ [Review Page] Received data:", {
+        isSuccess: res.isSuccess,
+        reviewCount: res.result.reviews?.length || 0,
+        reviews: res.result.reviews || []
       });
 
       setApiItems(res.result.reviews || []);
@@ -137,16 +164,22 @@ export default function Review() {
       }
     } catch (e: any) {
       console.error("❌ [Review] Fetch error:", e);
+      console.error("❌ [Review] Error message:", e?.message);
+      console.error("❌ [Review] Error stack:", e?.stack);
       setApiItems([]);
-      setApiError("");
+      setApiError(e?.message || "리뷰를 불러오는데 실패했습니다.");
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchReviews(currentPage);
-  }, [currentPage]);
+    setCurrentPage(1);
+    setTotalPages(1);
+    setPageCursors(new Map([[1, null]]));
+    fetchReviews(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showMyReviews]);
 
   // ============================= 검색 =============================
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -196,6 +229,29 @@ export default function Review() {
       pages.push(i);
     }
     return pages;
+  };
+
+  // ============================= 삭제 기능 =============================
+  const handleDelete = async (reviewId: number) => {
+    if (!confirm("정말 이 후기를 삭제하시겠습니까?")) return;
+
+    try {
+      const accessToken = getAccessToken();
+      if (!accessToken) {
+        alert("로그인이 필요합니다!");
+        router.push("/login");
+        return;
+      }
+
+      await deleteReview(reviewId, accessToken);
+      alert("후기가 삭제되었습니다.");
+
+      // 현재 페이지 새로고침
+      await fetchReviews(currentPage);
+    } catch (err: any) {
+      console.error("❌ [Review] Delete error:", err);
+      alert(`삭제 중 오류가 발생했습니다: ${err?.message ?? "알 수 없는 오류"}`);
+    }
   };
 
   // ============================= 글 등록(모달) =============================
@@ -350,6 +406,18 @@ export default function Review() {
 
         <button
           type="button"
+          className={styles.filterBtn}
+          onClick={() => setShowMyReviews(!showMyReviews)}
+          style={{
+            backgroundColor: showMyReviews ? "#7fad39" : "#fff",
+            color: showMyReviews ? "#fff" : "#7fad39",
+          }}
+        >
+          {showMyReviews ? "✓ 내 글 보기" : "내 글 보기"}
+        </button>
+
+        <button
+          type="button"
           className={styles.writeBtn}
           onClick={() => setIsModalOpen(true)}
         >
@@ -384,20 +452,39 @@ export default function Review() {
               <div
                 key={item.reviewId}
                 className={styles.reviewCard}
-                role="link"
-                tabIndex={0}
-                onClick={() => router.push(detailHref)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ")
-                    router.push(detailHref);
-                }}
               >
                 <header className={styles.reviewCardHeader}>
-                  <span className={styles.authorBadge} aria-hidden="true">
-                    {initial}
-                  </span>
-                  <span className={styles.authorName}>{item.memberName}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                    <span className={styles.authorBadge} aria-hidden="true">
+                      {initial}
+                    </span>
+                    <span className={styles.authorName}>{item.memberName}</span>
+                  </div>
+                  {showMyReviews && (
+                    <button
+                      type="button"
+                      className={styles.deleteBtn}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleDelete(item.reviewId);
+                      }}
+                      aria-label="삭제"
+                    >
+                      🗑️
+                    </button>
+                  )}
                 </header>
+
+                <div
+                  role="link"
+                  tabIndex={0}
+                  onClick={() => router.push(detailHref)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ")
+                      router.push(detailHref);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
 
                 <div className={styles.reviewThumb}>
                   {reviewImg ? (
@@ -438,6 +525,7 @@ export default function Review() {
                       <span className={styles.count}>{item.commentCount}</span>
                     </div>
                   </div>
+                </div>
                 </div>
               </div>
             );

@@ -5,14 +5,43 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { getMemberProfile, type MemberProfile } from "@/lib/api/member/profile";
+import { getAccessToken } from "@/lib/api/auth";
 
 export default function Header() {
   const pathname = usePathname();
   const router = useRouter();
   const { isAuthenticated, user, isLoading, logout } = useAuth();
+  const [memberProfile, setMemberProfile] = useState<MemberProfile | null>(null);
+
+  // Load member profile when authenticated
+  useEffect(() => {
+    const loadProfile = async () => {
+      if (!isAuthenticated) {
+        setMemberProfile(null);
+        return;
+      }
+
+      try {
+        const token = getAccessToken();
+        if (!token) return;
+
+        const response = await getMemberProfile(token);
+        if (response.isSuccess) {
+          setMemberProfile(response.result);
+        }
+      } catch (err) {
+        console.error("Failed to load member profile in header:", err);
+      }
+    };
+
+    loadProfile();
+  }, [isAuthenticated]);
 
   const handleLogout = async () => {
     await logout();
+    setMemberProfile(null);
     router.push("/");
   };
 
@@ -59,7 +88,7 @@ export default function Header() {
                 로그아웃
               </button>
               <Link href="/mypage" className={styles.userBox}>
-                <strong>{user?.guardianInfo?.name || "사용자"}님</strong>
+                <strong>{memberProfile?.username || user?.guardianInfo?.name || "사용자"}님</strong>
               </Link>
             </>
           )}

@@ -8,8 +8,10 @@ import { getAccessToken } from "@/lib/api/auth";
 import { getMyDonations, type MyDonation } from "@/lib/api/donations/mine";
 import BoneChargeModal from "@/components/donation/BoneChargeModal";
 import styles from "./page.module.css";
+import { getMystory, type ServerStory, type ServerTypeCode } from "@/lib/api/mystory/mine";
+import { getMemberProfile, type MemberProfile } from "@/lib/api/member/profile";
 
-type TabType = "pets" | "donations" | "adoptions" | "journals" | "settings";
+type TabType = "pets" | "donations" | "adoptions" | "storys" | "settings";
 
 interface SpringPet {
   petId: number;
@@ -29,11 +31,9 @@ export default function MyPage() {
     user,
     logout,
     logoutAll,
-    refreshProfile,
   } = useAuth();
 
   const [activeTab, setActiveTab] = useState<TabType>("pets");
-  const [hasRefreshed, setHasRefreshed] = useState(false);
   const [pets, setPets] = useState<SpringPet[]>([]);
   const [petsLoading, setPetsLoading] = useState(false);
 
@@ -42,9 +42,19 @@ export default function MyPage() {
   const [myDonations, setMyDonations] = useState<MyDonation[]>([]);
   const [totalDonated, setTotalDonated] = useState<number>(0); // in bones (converted from KRW)
   const [donationsLoading, setDonationsLoading] = useState(false);
+  const [myStorysLoading, setStorysLoading] = useState(false);
   const [showChargeModal, setShowChargeModal] = useState(false);
   const [donationCursor, setDonationCursor] = useState<number | null>(null);
   const [hasMoreDonations, setHasMoreDonations] = useState(false);
+
+  // Story states
+  const [myStories, setMyStories] = useState<ServerStory[]>([]);
+  const [storyCursor, setStoryCursor] = useState<number | null>(null);
+  const [hasMoreStories, setHasMoreStories] = useState(false);
+  const [selectedStoryType, setSelectedStoryType] = useState<ServerTypeCode>("DAILY");
+
+  // Member profile state
+  const [memberProfile, setMemberProfile] = useState<MemberProfile | null>(null);
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -53,13 +63,26 @@ export default function MyPage() {
     }
   }, [isLoading, isAuthenticated, router]);
 
-  // Refresh profile when page loads (only once)
+  // Load member profile
   useEffect(() => {
-    if (isAuthenticated && refreshProfile && !hasRefreshed) {
-      refreshProfile();
-      setHasRefreshed(true);
-    }
-  }, [isAuthenticated, refreshProfile, hasRefreshed]);
+    const loadMemberProfile = async () => {
+      if (!isAuthenticated) return;
+
+      try {
+        const token = getAccessToken();
+        if (!token) return;
+
+        const response = await getMemberProfile(token);
+        if (response.isSuccess) {
+          setMemberProfile(response.result);
+        }
+      } catch (err) {
+        console.error("Failed to load member profile:", err);
+      }
+    };
+
+    loadMemberProfile();
+  }, [isAuthenticated]);
 
   // Load pets from Spring Backend
   useEffect(() => {
@@ -133,6 +156,52 @@ export default function MyPage() {
     }
   };
 
+  // Load story data when storys tab is active
+  useEffect(() => {
+    const loadMyStoryData = async () => {
+      if (activeTab !== "storys" || !isAuthenticated) return;
+
+      setStorysLoading(true);
+      try {
+        // Load story history (first page) - 선택된 타입으로 필터링
+        const response = await getMystory({ size: 10, type: selectedStoryType });
+        console.log("📋 [MyPage] Story API Response:", response);
+        console.log("📋 [MyPage] Stories:", response.result?.stories);
+        if (response.isSuccess) {
+          setMyStories(response.result.stories || []);
+          setStoryCursor(response.result.nextCursor);
+          setHasMoreStories(response.result.nextCursor !== null);
+        }
+      } catch (err) {
+        console.error("Failed to load story data:", err);
+        setMyStories([]);
+      } finally {
+        setStorysLoading(false);
+      }
+    };
+
+    loadMyStoryData();
+  }, [activeTab, isAuthenticated, selectedStoryType]);
+
+  // Load more stories (pagination)
+  const loadMoreMyStory = async () => {
+    if (!storyCursor || myStorysLoading) return;
+
+    setStorysLoading(true);
+    try {
+      const response = await getMystory({ size: 10, cursor: storyCursor, type: selectedStoryType });
+      if (response.isSuccess) {
+        setMyStories((prev) => [...prev, ...(response.result.stories || [])]);
+        setStoryCursor(response.result.nextCursor);
+        setHasMoreStories(response.result.nextCursor !== null);
+      }
+    } catch (err) {
+      console.error("Failed to load more stories:", err);
+    } finally {
+      setStorysLoading(false);
+    }
+  };
+
   const handleLogout = async () => {
     await logout();
     router.push("/");
@@ -178,19 +247,19 @@ export default function MyPage() {
             <div className={styles.avatar}>{initial}</div>
             <div className={styles.userInfo}>
               <h2 className={styles.userName}>
-                {user?.guardianInfo?.name || "사용자"}
+                {memberProfile?.username || user?.guardianInfo?.name || "사용자"}
               </h2>
               <p className={styles.userEmail}>
                 {user?.guardianInfo?.email || "이메일 정보 없음"}
               </p>
               <p className={styles.userPhone}>
-                {user?.guardianInfo?.phone || "전화번호 정보 없음"}
+                {memberProfile?.phoneNumber || user?.guardianInfo?.phone || "전화번호 정보 없음"}
               </p>
               <p className={styles.userAddress}>
                 서울시 강남구 역삼동
               </p>
               <span className={styles.joinBadge}>
-                {joinYear}년 {joinMonth}월 가입
+                {memberProfile?.createdAt ? new Date(memberProfile.createdAt).getFullYear() + "년 " + (new Date(memberProfile.createdAt).getMonth() + 1) + "월 가입" : `${joinYear}년 ${joinMonth}월 가입`}
               </span>
             </div>
           </div>
@@ -229,9 +298,9 @@ export default function MyPage() {
         </button>
         <button
           className={`${styles.tabButton} ${
-            activeTab === "journals" ? styles.active : ""
+            activeTab === "storys" ? styles.active : ""
           }`}
-          onClick={() => setActiveTab("journals")}
+          onClick={() => setActiveTab("storys")}
         >
           내 일지
         </button>
@@ -446,22 +515,94 @@ export default function MyPage() {
         )}
 
         {/* 내 일지 탭 */}
-        {activeTab === "journals" && (
+        {activeTab === "storys" && (
           <div className={styles.journalsTab}>
-            <h2 className={styles.tabTitle}>내가 작성한 일지</h2>
-            <div className={styles.emptyState}>
-              <p className={styles.emptyIcon}>📝</p>
-              <p className={styles.emptyTitle}>작성한 일지가 없습니다</p>
-              <p className={styles.emptyDescription}>
-                반려동물과의 특별한 순간을 기록해보세요
-              </p>
-              <button
-                className={styles.goToDonationBtn}
-                onClick={() => router.push("/story")}
+            <div className={styles.tabHeader}>
+              <h2 className={styles.tabTitle}>내가 작성한 일지</h2>
+              <select
+                className={styles.typeFilter}
+                value={selectedStoryType}
+                onChange={(e) => setSelectedStoryType(e.target.value as ServerTypeCode)}
               >
-                일지 작성하기
-              </button>
+                <option value="DAILY">일상 일지</option>
+                <option value="REVIEW">입양 후기</option>
+                <option value="ADOPTION">입양 신청</option>
+                <option value="DONATION">후원</option>
+              </select>
             </div>
+
+            {myStorysLoading ? (
+              <div className={styles.loading}>
+                <div className={styles.spinner}></div>
+                <p>일지를 불러오는 중...</p>
+              </div>
+            ) : myStories && myStories.length > 0 ? (
+              <>
+                <div className={styles.storyList}>
+                  {myStories.map((story) => {
+                    console.log("📋 [MyPage] Rendering story:", story);
+                    return (
+                    <div
+                      key={story.storyId}
+                      className={styles.storyItem}
+                      onClick={() => {
+                        console.log("📋 [MyPage] Clicking story with ID:", story.storyId);
+                        if (story.storyId) {
+                          router.push(`/story/${story.storyId}`);
+                        } else {
+                          console.error("❌ [MyPage] storyId is undefined!");
+                        }
+                      }}
+                    >
+                      <div className={styles.storyItemHeader}>
+                        <h3 className={styles.storyItemTitle}>{story.title}</h3>
+                        <span className={styles.storyItemDate}>
+                          {story.petName} • {story.breed}
+                        </span>
+                      </div>
+                      <div className={styles.storyItemFooter}>
+                        <div className={styles.storyItemStats}>
+                          <span className={styles.statItem}>
+                            ♡ {story.likeCount}
+                          </span>
+                          <span className={styles.statItem}>
+                            💬 {story.commentCount}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                  })}
+                </div>
+
+                {/* Load More 버튼 */}
+                {hasMoreStories && (
+                  <div className={styles.loadMoreSection}>
+                    <button
+                      className={styles.loadMoreBtn}
+                      onClick={loadMoreMyStory}
+                      disabled={myStorysLoading}
+                    >
+                      {myStorysLoading ? "불러오는 중..." : "더보기"}
+                    </button>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className={styles.emptyState}>
+                <p className={styles.emptyIcon}>📝</p>
+                <p className={styles.emptyTitle}>작성한 일지가 없습니다</p>
+                <p className={styles.emptyDescription}>
+                  반려동물과의 특별한 순간을 기록해보세요
+                </p>
+                <button
+                  className={styles.goToDonationBtn}
+                  onClick={() => router.push("/story")}
+                >
+                  일지 작성하기
+                </button>
+              </div>
+            )}
           </div>
         )}
 
