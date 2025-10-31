@@ -1,6 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+
+  // Production 빌드 최적화 (메모리 사용 감소)
+  productionBrowserSourceMaps: false,
+
+  // SWC Minifier 최적화
+  swcMinify: true,
+
+  // 실험적 기능 - 메모리 최적화
+  experimental: {
+    // 빌드 시 메모리 사용 줄이기
+    optimizePackageImports: ['@rainbow-me/rainbowkit', 'wagmi', 'viem'],
+  },
+
   images: {
     remotePatterns: [
       {

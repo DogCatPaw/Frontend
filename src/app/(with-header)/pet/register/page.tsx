@@ -179,6 +179,27 @@ export default function PetRegisterPage() {
       );
 
       console.log("✅ Prepare result:", result);
+
+      // ⭐ Check if backend returned error
+      if (!result.success || result.error) {
+        const errorMessage = result.error || "준비 실패";
+        console.error("❌ Backend returned error:", errorMessage);
+
+        // 가디언 미등록 에러인 경우 특별 처리
+        if (errorMessage.includes("가디언이 등록되지 않았습니다")) {
+          alert("⚠️ 가디언(보호자) 등록이 필요합니다!\n\n먼저 가디언 등록을 완료해주세요.\n가디언 등록 페이지로 이동합니다.");
+          router.push("/guardian/register");
+          return;
+        }
+
+        throw new Error(errorMessage);
+      }
+
+      // ⭐ Validate response structure
+      if (!result.petDID || !result.petRegistrationTxData || !result.guardianLinkTxData || !result.vcSigningData) {
+        throw new Error("서명 데이터가 완전하지 않습니다. 다시 시도해주세요.");
+      }
+
       console.log("🐾 Pet DID:", result.petDID);
       setPrepareResult(result);
       setCurrentStep(RegistrationStep.SIGN);
@@ -216,6 +237,22 @@ export default function PetRegisterPage() {
       console.log("✍️ Signing transactions...");
       console.log("Address:", address);
       console.log("WalletClient:", walletClient);
+
+      // ⭐ DEBUG: Check prepareResult structure
+      console.log("🔍 Full prepareResult:", JSON.stringify(prepareResult, null, 2));
+      console.log("🔍 petRegistrationTxData:", prepareResult?.petRegistrationTxData);
+      console.log("🔍 guardianLinkTxData:", prepareResult?.guardianLinkTxData);
+
+      // Validate prepareResult structure
+      if (!prepareResult?.petRegistrationTxData) {
+        throw new Error("Pet registration transaction data is missing from prepare result");
+      }
+      if (!prepareResult?.guardianLinkTxData) {
+        throw new Error("Guardian link transaction data is missing from prepare result");
+      }
+      if (!prepareResult?.vcSigningData) {
+        throw new Error("VC signing data is missing from prepare result");
+      }
 
       // 1. Send Pet Registration TX
       console.log("1️⃣ Sending Pet Registration TX...");

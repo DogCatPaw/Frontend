@@ -1,5 +1,7 @@
 // src/lib/api/member/profile.ts
 
+import { getApiUrl } from "../config";
+
 export interface MemberProfile {
   walletAddress: string;
   profileImage: string;
@@ -25,9 +27,7 @@ export async function getMemberProfile(accessToken: string): Promise<GetMemberPr
     throw new Error("getMemberProfile: accessToken이 필요합니다.");
   }
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/member/profile`;
-
-  const res = await fetch(url, {
+  const res = await fetch(getApiUrl('/api/member/profile'), {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

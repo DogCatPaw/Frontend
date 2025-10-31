@@ -15,14 +15,12 @@ export default function Home() {
         <div className={styles.title}>
           한 마리의 유기동물도,
           <br />
-          반려동물도 <span className={styles.highlight}>잊히지 않도록.</span>
+          반려동물도 <span className={styles.highlight}>잊히지 않도록</span>
         </div>
         <div className={styles.description}>
-          멍냥포는 DID를 통해 유기동물의 존재를 기록하고,
+          DID를 통해 유기동물의 존재를 기록하고
           <br />
-          새로운 가족을 만나도록 입양과 후원을
-          <br />
-          따뜻하게 이어줍니다.
+          입양과 후원을 연결하는 플랫폼
         </div>
         <Link href="/main" className={styles.button}>
           시작하기 →

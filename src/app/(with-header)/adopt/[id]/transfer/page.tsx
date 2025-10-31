@@ -253,7 +253,7 @@ export default function AdoptionTransferPage() {
 
       // 1. Get presigned URL
       const presignedResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/common`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL || "http://puppypaw.site"}/api/common`,
         {
           method: "POST",
           headers: {

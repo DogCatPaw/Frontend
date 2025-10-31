@@ -1,5 +1,7 @@
 // ---- 서버 응답 타입(스웨거 기준) ----
 
+import { getApiUrl } from "./config";
+
 export interface ServerLike {
   storyId: number;
   memberId?: string;
@@ -18,9 +20,6 @@ export interface PostLikeResponse {
 export async function postLike(storyId: number) {
   if (storyId == null) throw new Error("postLike: storyId는 필수입니다.");
 
-  // storyId를 쿼리 파라미터로 전달
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/like?storyId=${storyId}`;
-
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -31,6 +30,9 @@ export async function postLike(storyId: number) {
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  // storyId를 쿼리 파라미터로 전달
+  const url = getApiUrl(`/api/like?storyId=${storyId}`);
 
   const res = await fetch(url, {
     method: "POST",

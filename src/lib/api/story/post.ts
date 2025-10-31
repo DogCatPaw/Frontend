@@ -1,5 +1,7 @@
 // src/lib/api/adopt/post.ts
 
+import { getApiUrl } from "../config";
+
 export interface ServerStoryPost {
   memberName: string;
   storyId: number;
@@ -31,7 +33,7 @@ export async function postStory(
   accessToken: string
 ): Promise<PostStoryResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/daily`,
+    getApiUrl('/api/story/daily'),
     {
       method: "POST",
       headers: {

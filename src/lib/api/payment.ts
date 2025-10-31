@@ -7,8 +7,7 @@ import type {
   ApprovePaymentResponse,
 } from "@/types/api";
 import { getAccessToken } from "./auth";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 // ==================== Payment API ====================
 
@@ -35,7 +34,7 @@ export async function preparePayment(
   }
 
   const response = await axios.post<ApiResponse<PreparePaymentResponse>>(
-    `${API_BASE_URL}/api/payment/prepare`,
+    getApiUrl('/api/payment/prepare'),
     { itemId } as PreparePaymentDto,
     {
       headers: {
@@ -85,7 +84,7 @@ export async function approvePayment(
   }
 
   const response = await axios.post<ApiResponse<ApprovePaymentResponse>>(
-    `${API_BASE_URL}/api/payment/approve?walletAddress=${encodeURIComponent(walletAddress.toLowerCase())}`,
+    getApiUrl(`/api/payment/approve?walletAddress=${encodeURIComponent(walletAddress.toLowerCase())}`),
     dto,
     {
       headers: {

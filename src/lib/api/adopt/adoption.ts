@@ -7,6 +7,7 @@ import {
   REGION_LABEL,
   DISTRICTS,
 } from "@/types/enums";
+import { getApiUrl } from "../config";
 
 // ---- 서버 응답 타입(스웨거 기준) ----
 export interface ServerAdoption {
@@ -63,7 +64,7 @@ export async function getAdoptionList(params: GetAdoptionListParams = {}) {
   if (keyword) q.set("keyword", String(keyword));
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/adoption?${q.toString()}`,
+    getApiUrl(`/api/adoption?${q.toString()}`),
     { method: "GET", next: { revalidate: 0 } }
   );
 

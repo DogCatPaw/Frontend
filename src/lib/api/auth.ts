@@ -1,7 +1,6 @@
 import axios from "axios";
 import type { ApiResponse } from "@/types/api";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 // ==================== Authentication Types ====================
 
@@ -99,7 +98,7 @@ export async function getChallenge(
   walletAddress: string
 ): Promise<ChallengeResponse> {
   const response = await axios.post<ChallengeResponse>(
-    `${API_BASE_URL}/api/auth/challenge`,
+    getApiUrl('/api/auth/challenge'),
     {
       walletAddress: walletAddress.toLowerCase(), // ✅ CRITICAL: Must be lowercase!
     }
@@ -114,7 +113,7 @@ export async function getChallenge(
  */
 export async function login(request: LoginRequest): Promise<LoginResponse> {
   const response = await axios.post<LoginResponse>(
-    `${API_BASE_URL}/api/auth/login`,
+    getApiUrl('/api/auth/login'),
     {
       ...request,
       walletAddress: request.walletAddress.toLowerCase(), // ✅ CRITICAL: Must be lowercase!
@@ -132,7 +131,7 @@ export async function getProfile(
   accessToken: string
 ): Promise<ProfileResponse> {
   const response = await axios.get<ProfileResponse>(
-    `${API_BASE_URL}/api/auth/profile`,
+    getApiUrl('/api/auth/profile'),
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -148,7 +147,7 @@ export async function getProfile(
  */
 export async function logout(accessToken: string): Promise<LogoutResponse> {
   const response = await axios.post<LogoutResponse>(
-    `${API_BASE_URL}/api/auth/logout`,
+    getApiUrl('/api/auth/logout'),
     {},
     {
       headers: {
@@ -167,7 +166,7 @@ export async function logoutAll(
   accessToken: string
 ): Promise<LogoutResponse> {
   const response = await axios.post<LogoutResponse>(
-    `${API_BASE_URL}/api/auth/logout-all`,
+    getApiUrl('/api/auth/logout-all'),
     {},
     {
       headers: {
@@ -281,7 +280,7 @@ export async function refreshAccessToken(
   refreshToken: string
 ): Promise<RefreshTokenResponse> {
   const response = await axios.post<RefreshTokenResponse>(
-    `${API_BASE_URL}/api/auth/refresh`,
+    getApiUrl('/api/auth/refresh'),
     { refreshToken }
   );
   return response.data;

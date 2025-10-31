@@ -3,8 +3,7 @@ import type {
   ApiResponse,
   DonationDetailResponse,
 } from "@/types/api";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "../config";
 
 // ==================== Donation Detail API ====================
 
@@ -43,9 +42,9 @@ export async function getDonationDetail(
   }
 
   const queryString = queryParams.toString();
-  const url = `${API_BASE_URL}/api/donation/${donationId}${
+  const url = getApiUrl(`/api/donation/${donationId}${
     queryString ? `?${queryString}` : ""
-  }`;
+  }`);
 
   const response = await axios.get<ApiResponse<DonationDetailResponse>>(url);
 

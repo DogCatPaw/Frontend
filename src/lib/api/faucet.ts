@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 // ==================== Faucet Types ====================
 
@@ -72,7 +71,7 @@ export async function requestFaucetFunds(
   accessToken: string
 ): Promise<RequestFundsResponse> {
   const response = await axios.post<RequestFundsResponse>(
-    `${API_BASE_URL}/faucet/request`,
+    getApiUrl('/api/faucet/request'),
     {
       walletAddress: request.walletAddress.toLowerCase(),
       amount: request.amount || "100", // Default 100 ETH
@@ -101,7 +100,7 @@ export async function requestFaucetFundsWithWeb3Token(
   walletAddress: string
 ): Promise<RequestFundsResponse> {
   const response = await axios.post<RequestFundsResponse>(
-    `${API_BASE_URL}/faucet/request`,
+    getApiUrl('/api/faucet/request'),
     {
       walletAddress: request.walletAddress.toLowerCase(),
       amount: request.amount || "1", // Default 1 ETH (minimal for gas)
@@ -129,7 +128,7 @@ export async function getFaucetBalance(
 ): Promise<FaucetBalanceResponse> {
   const params = address ? { address: address.toLowerCase() } : {};
   const response = await axios.get<FaucetBalanceResponse>(
-    `${API_BASE_URL}/faucet/balance`,
+    getApiUrl('/api/faucet/balance'),
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -158,7 +157,7 @@ export async function getFaucetHistory(
   }
 
   const response = await axios.get<FaucetHistoryResponse>(
-    `${API_BASE_URL}/faucet/history`,
+    getApiUrl('/api/faucet/history'),
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -175,7 +174,7 @@ export async function getFaucetHistory(
  */
 export async function getFaucetHealth(): Promise<FaucetHealthResponse> {
   const response = await axios.get<FaucetHealthResponse>(
-    `${API_BASE_URL}/faucet/health`
+    getApiUrl('/api/faucet/health')
   );
   return response.data;
 }

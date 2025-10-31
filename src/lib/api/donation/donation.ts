@@ -7,8 +7,7 @@ import type {
   BoneBalanceResponse,
 } from "@/types/api";
 import { getAccessToken } from "../auth";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "../config";
 
 // ==================== Donation Actions API ====================
 
@@ -44,7 +43,7 @@ export async function makeDonation(
   }
 
   const response = await axios.post<ApiResponse<MakeDonationResponse>>(
-    `${API_BASE_URL}/api/donations`,
+    getApiUrl('/api/donations'),
     dto,
     {
       headers: {
@@ -95,9 +94,9 @@ export async function getMyDonationHistory(params?: {
   }
 
   const queryString = queryParams.toString();
-  const url = `${API_BASE_URL}/api/donations/mine${
+  const url = getApiUrl(`/api/donations/mine${
     queryString ? `?${queryString}` : ""
-  }`;
+  }`);
 
   const response = await axios.get<ApiResponse<MyDonationHistoryResponse>>(
     url,
@@ -140,7 +139,7 @@ export async function getBoneBalance(): Promise<
   }
 
   const response = await axios.get<ApiResponse<BoneBalanceResponse>>(
-    `${API_BASE_URL}/api/donations/bone/`,
+    getApiUrl('/api/donations/bone/'),
     {
       headers: {
         Authorization: `Bearer ${accessToken}`,

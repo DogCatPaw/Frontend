@@ -1,5 +1,7 @@
 // src/lib/api/donations/mine.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입 ----
 export interface MyDonation {
   donationTitle: string;
@@ -47,7 +49,7 @@ export async function getMyDonations(
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/donations/mine?${qs.toString()}`;
+  const url = getApiUrl(`/api/donations/mine?${qs.toString()}`);
 
   const res = await fetch(url, {
     method: "GET",

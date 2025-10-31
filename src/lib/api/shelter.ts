@@ -1,7 +1,6 @@
 import axios from "axios";
 import type { ApiResponse, ShelterListParams, ShelterListResponse } from "@/types/api";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 /**
  * Get list of shelters with optional filtering
@@ -20,7 +19,7 @@ export async function getShelterList(
     if (params.district) queryParams.append("district", params.district);
     if (params.keyword) queryParams.append("keyword", params.keyword);
 
-    const url = `${API_BASE_URL}/api/shelter${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
+    const url = getApiUrl(`/api/shelter${queryParams.toString() ? `?${queryParams.toString()}` : ""}`);
 
     console.log("📤 [Shelter API] Fetching shelters:", url);
 

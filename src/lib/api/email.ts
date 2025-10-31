@@ -1,7 +1,6 @@
 import axios from "axios";
 import type { ApiResponse } from "@/types/api";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 // ==================== Email 관련 타입 ====================
 
@@ -48,7 +47,7 @@ export async function sendVerificationCode(
   walletAddress: string
 ): Promise<SendVerificationCodeResponse> {
   const response = await axios.post<SendVerificationCodeResponse>(
-    `${API_BASE_URL}/email/send-code`,
+    getApiUrl('/api/email/send-code'),
     { email: request.email },
     {
       headers: {
@@ -74,7 +73,7 @@ export async function verifyCode(
   walletAddress: string
 ): Promise<VerifyCodeResponse> {
   const response = await axios.post<VerifyCodeResponse>(
-    `${API_BASE_URL}/email/verify-code`,
+    getApiUrl('/api/email/verify-code'),
     { code: request.code },
     {
       headers: {
@@ -96,7 +95,7 @@ export async function checkEmailAvailability(
   email: string
 ): Promise<ApiResponse<{ available: boolean }>> {
   const response = await axios.get<ApiResponse<{ available: boolean }>>(
-    `${API_BASE_URL}/api/email/check-availability`,
+    getApiUrl('/api/email/check-availability'),
     {
       params: { email },
     }

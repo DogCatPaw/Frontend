@@ -1,5 +1,7 @@
 // src/lib/api/story/detail.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입(스웨거 기준) ----
 export type ServerBreedCode =
   | "MALTESE"
@@ -63,9 +65,7 @@ export async function getStoryDetail(storyId: number, accessToken?: string) {
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/daily/${encodeURIComponent(
-      String(storyId)
-    )}`,
+    getApiUrl(`/api/story/daily/${encodeURIComponent(String(storyId))}`),
     {
       method: "GET",
       headers,

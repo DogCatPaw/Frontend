@@ -21,6 +21,7 @@ import {
   prepareTransfer,
   type PrepareTransferRequest,
 } from "@/lib/api/adopt/transfer";
+import { API_BASE_URL } from "@/lib/api/config";
 
 // NestJS ChatMessageDto 타입 (실제 WebSocket 응답)
 interface ChatMessage {
@@ -174,12 +175,16 @@ function ChatContent() {
       socketRef.current.disconnect();
     }
 
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
-    console.log("🔌 WebSocket 연결 중...", API_BASE_URL + "/chat");
+    // Socket.IO connection: server uses namespace '/chat'
+    // Socket.IO automatically connects to /socket.io/ path
+    console.log("🔌 WebSocket 연결 중...", `${API_BASE_URL}/chat`);
 
     const socket = io(`${API_BASE_URL}/chat`, {
       auth: { token: accessToken },
       transports: ["websocket"],
+      reconnection: true,
+      reconnectionDelay: 1000,
+      reconnectionAttempts: 5,
     });
 
     socketRef.current = socket;
@@ -422,9 +427,8 @@ function ChatContent() {
       }
 
       // Get provider for nonce
-      const provider = new ethers.JsonRpcProvider(
-        "http://besu-networ-besu-rpc-ext-43e7a-108790139-4b974a576079.kr.lb.naverncp.com:8545"
-      );
+      const rpcUrl = process.env.NEXT_PUBLIC_BESU_RPC_URL || "http://ing-besunetwork-besurpci-c2714-112438542-11db0fa2d284.kr.lb.naverncp.com";
+      const provider = new ethers.JsonRpcProvider(rpcUrl);
 
       // ⭐ Step 2-1: 블록체인에서 현재 controller 확인
       console.log("🔍 블록체인에서 현재 controller 확인 중...");

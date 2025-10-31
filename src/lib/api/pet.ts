@@ -5,8 +5,7 @@
  */
 
 import axios from "axios";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 // ==================== Types ====================
 
@@ -101,12 +100,13 @@ export interface VCSigningData {
 
 export interface PrepareRegistrationResponse {
   success: boolean;
-  petDID: string;
-  message: string;
-  petRegistrationTxData: TransactionData;
-  guardianLinkTxData: TransactionData;
-  vcSigningData: VCSigningData;
-  nextStep: string;
+  petDID?: string;
+  message?: string;
+  petRegistrationTxData?: TransactionData;
+  guardianLinkTxData?: TransactionData;
+  vcSigningData?: VCSigningData;
+  nextStep?: string;
+  error?: string; // ⭐ 에러 응답용
 }
 
 export interface RegisterPetRequest extends PetData {
@@ -142,8 +142,8 @@ export async function prepareRegistration(
   petData: PrepareRegistrationRequest,
   accessToken: string
 ): Promise<PrepareRegistrationResponse> {
-  const response = await axios.post<PrepareRegistrationResponse>(
-    `${API_BASE_URL}/pet/prepare-registration`,
+  const response = await axios.post(
+    getApiUrl('/api/pet/prepare-registration'),
     petData,
     {
       headers: {
@@ -152,6 +152,14 @@ export async function prepareRegistration(
       },
     }
   );
+
+  // Spring Boot usually wraps response in { isSuccess, status, code, message, result }
+  // If backend returns wrapped response, extract result
+  if (response.data?.result) {
+    console.log("✅ prepareRegistration: Unwrapping Spring Boot response");
+    return response.data.result;
+  }
+
   return response.data;
 }
 
@@ -162,8 +170,8 @@ export async function registerPet(
   petData: RegisterPetRequest,
   accessToken: string
 ): Promise<RegisterPetResponse> {
-  const response = await axios.post<RegisterPetResponse>(
-    `${API_BASE_URL}/pet/register`,
+  const response = await axios.post(
+    getApiUrl('/api/pet/register'),
     petData,
     {
       headers: {
@@ -172,6 +180,14 @@ export async function registerPet(
       },
     }
   );
+
+  // Spring Boot usually wraps response in { isSuccess, status, code, message, result }
+  // If backend returns wrapped response, extract result
+  if (response.data?.result) {
+    console.log("✅ registerPet: Unwrapping Spring Boot response");
+    return response.data.result;
+  }
+
   return response.data;
 }
 
@@ -180,7 +196,7 @@ export async function registerPet(
  */
 export async function getMyPets(accessToken: string) {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/pet`, {
+    const response = await axios.get(getApiUrl('/api/pet'), {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -218,7 +234,7 @@ export async function getPetById(petId: number, accessToken: string) {
 export async function getPetHistory(petDID: string, accessToken: string) {
   try {
     const response = await axios.get(
-      `${API_BASE_URL}/pet/history/${encodeURIComponent(petDID)}`,
+      getApiUrl(`/api/pet/history/${encodeURIComponent(petDID)}`),
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

@@ -1,4 +1,7 @@
 // ---- 서버 응답 타입(스웨거 기준) ----
+
+import { getApiUrl } from "./config";
+
 // ================================ GET ================================
 export interface ServerComment {
   nickName: string;
@@ -39,8 +42,6 @@ export async function getComment({
   q.set("size", String(size));
   if (cursor != null) q.set("cursor", String(cursor));
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/comment/?${q.toString()}`;
-
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -51,6 +52,8 @@ export async function getComment({
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  const url = getApiUrl(`/api/comment/?${q.toString()}`);
 
   const res = await fetch(url, {
     method: "GET",
@@ -95,8 +98,6 @@ export async function postComment(body: PostCommentBody) {
   if (!body?.comment?.trim())
     throw new Error("postComment: comment는 필수입니다.");
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/comment/`;
-
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -107,6 +108,8 @@ export async function postComment(body: PostCommentBody) {
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  const url = getApiUrl('/api/comment/');
 
   const res = await fetch(url, {
     method: "POST",

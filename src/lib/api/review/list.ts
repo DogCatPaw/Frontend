@@ -1,5 +1,7 @@
 // src/lib/api/review/list.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입(스웨거 기준) ----
 export type ServerBreedCode =
   | "MALTESE"
@@ -67,8 +69,6 @@ export async function getReviewList(params: GetReviewListParams = {}) {
   if (walletAddress)
     q.set("walletAddress", walletAddress);
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/review/reviews?${q.toString()}`;
-
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -79,6 +79,8 @@ export async function getReviewList(params: GetReviewListParams = {}) {
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  const url = getApiUrl(`/api/story/review/reviews?${q.toString()}`);
 
   console.log("📤 [Review API] Fetching reviews with token:", accessToken ? "✓" : "✗");
 

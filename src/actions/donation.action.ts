@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import type { ServerActionResponse } from "@/types";
+import { getApiUrl } from "@/lib/api/config";
 
 /**
  * 후원 공고 생성 Server Action
@@ -32,7 +33,7 @@ export async function createDonation(
     }
 
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/donation`,
+      getApiUrl('/donation'),
       {
         method: "POST",
         body: uploadFormData,
@@ -80,7 +81,7 @@ export async function donate(
 
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/donation/${donationId}/donate`,
+      getApiUrl(`/donation/${donationId}/donate`),
       {
         method: "POST",
         headers: {

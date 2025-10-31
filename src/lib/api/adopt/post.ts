@@ -1,5 +1,7 @@
 // src/lib/api/adopt/post.ts
 
+import { getApiUrl } from "../config";
+
 export type ServerRegion =
   | "SEOUL"
   | "BUSAN"
@@ -50,7 +52,7 @@ export async function postAdoption(
   accessToken: string
 ): Promise<PostAdoptionResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/adoption/post`,
+    getApiUrl('/api/adoption/post'),
     {
       method: "POST",
       headers: {

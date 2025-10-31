@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { ServerActionResponse } from "@/types";
+import { getApiUrl } from "@/lib/api/config";
 
 /**
  * 입양 공고 생성 Server Action
@@ -38,7 +39,7 @@ export async function createAdoption(
     }
 
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/adoption`,
+      getApiUrl('/adoption'),
       {
         method: "POST",
         body: uploadFormData,
@@ -87,7 +88,7 @@ export async function updateAdoption(
 
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/adoption/${adoptId}`,
+      getApiUrl(`/adoption/${adoptId}`),
       {
         method: "PUT",
         headers: {
@@ -137,7 +138,7 @@ export async function deleteAdoption(
 ): Promise<ServerActionResponse> {
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/adoption/${adoptId}`,
+      getApiUrl(`/adoption/${adoptId}`),
       {
         method: "DELETE",
       }
@@ -188,7 +189,7 @@ export async function applyForAdoption(
 
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/adoption/${adoptId}/apply`,
+      getApiUrl(`/adoption/${adoptId}/apply`),
       {
         method: "POST",
         headers: {

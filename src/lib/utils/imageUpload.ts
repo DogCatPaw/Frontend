@@ -1,8 +1,7 @@
 import axios from "axios";
 import { generateWeb3Token } from "./web3Token";
 import type { WalletClient } from "viem";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "../api/config";
 
 /**
  * Web3Token을 사용하여 이미지를 S3에 업로드
@@ -28,7 +27,7 @@ export async function uploadImageWithWeb3Token(
 
   // Step 2: Get presigned URL from backend
   const response = await axios.post(
-    `${API_BASE_URL}/common`,
+    getApiUrl('/api/common'),
     {},
     {
       headers: {
@@ -101,7 +100,7 @@ export async function uploadImageWithJWT(
 
   // Step 1: Get presigned URL from backend
   const response = await axios.post(
-    `${API_BASE_URL}/common`,
+    getApiUrl('/api/common'),
     {},
     {
       headers: {

@@ -1,5 +1,7 @@
 // src/lib/api/review/detail.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입(스웨거 기준) ----
 export type ServerBreedCode =
   | "MALTESE"
@@ -56,10 +58,6 @@ export async function getReviewDetail(reviewId: number, accessToken?: string) {
     throw new Error("getReviewDetail: 유효한 reviewId가 필요합니다.");
   }
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/review/${encodeURIComponent(
-    String(reviewId)
-  )}`;
-
   const headers: HeadersInit = {
     "Content-Type": "application/json",
   };
@@ -67,6 +65,8 @@ export async function getReviewDetail(reviewId: number, accessToken?: string) {
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  const url = getApiUrl(`/api/story/review/${encodeURIComponent(String(reviewId))}`);
 
   console.log("📤 [Review API] Fetching review detail:", url);
 

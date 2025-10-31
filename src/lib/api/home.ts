@@ -6,6 +6,7 @@ import {
   DonationStatus,
   RegionCode,
 } from "@/types/enums";
+import { getApiUrl } from "./config";
 
 // ------------------------------------------
 // 서버 응답 타입(스웨거 기준)
@@ -88,7 +89,7 @@ export interface GetResponse {
 // ------------------------------------------
 export async function getHomeList() {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/adoption/home`,
+    getApiUrl('/api/adoption/home'),
     {
       method: "GET",
       next: { revalidate: 0 },

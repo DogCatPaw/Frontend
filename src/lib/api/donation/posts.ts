@@ -1,5 +1,7 @@
 // src/lib/api/donation/posts.ts
 
+import { getApiUrl } from "../config";
+
 export type ServerDonationCategory = "MEDICAL" | "FOOD" | "SHELTER" | "OTHER";
 
 export interface ServerDonationPost {
@@ -35,7 +37,7 @@ export async function postDonation(
   accessToken: string
 ): Promise<PostDonationResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/donation/posts`,
+    getApiUrl('/api/donation/posts'),
     {
       method: "POST",
       headers: {

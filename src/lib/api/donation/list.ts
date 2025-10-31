@@ -1,5 +1,7 @@
 // src/lib/api/donation/list.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입(스웨거 기준) ----
 export type ServerDonationStatus = "ACTIVE" | "ACHIEVED" | "CLOSED";
 
@@ -70,7 +72,7 @@ export async function getDonationList(params: GetDonationListParams = {}) {
   if (keyword) qs.set("keyword", keyword);
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/donation/list?${qs.toString()}`,
+    getApiUrl(`/api/donation/list?${qs.toString()}`),
     { method: "GET", next: { revalidate: 0 } }
   );
   if (!res.ok) {

@@ -19,7 +19,8 @@ dist
 .env.local
 .env.development.local
 .env.test.local
-.env.production.local
+# .env.production은 포함시켜서 빌드에 사용
+# .env.production.local
 
 # Testing
 coverage

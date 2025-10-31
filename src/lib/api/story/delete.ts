@@ -1,5 +1,7 @@
 // src/lib/api/story/delete.ts
 
+import { getApiUrl } from "../config";
+
 export interface DeleteStoryResponse {
   isSuccess: boolean;
   status: string;
@@ -19,9 +21,7 @@ export async function deleteStory(storyId: number, accessToken: string): Promise
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/daily/${encodeURIComponent(
-      String(storyId)
-    )}`,
+    getApiUrl(`/api/story/daily/${encodeURIComponent(String(storyId))}`),
     {
       method: "DELETE",
       headers: {

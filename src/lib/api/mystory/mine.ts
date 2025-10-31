@@ -1,5 +1,7 @@
 // src/lib/api/review/list.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입(스웨거 기준) ----
 export type ServerTypeCode =
   | "DAILY"
@@ -70,8 +72,6 @@ export async function getMystory(params: GetMyStoryParams = {}) {
   if (type !== undefined && type !== null)
     q.set("type", String(type));
 
-  const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/member/stories?${q.toString()}`;
-
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -82,6 +82,8 @@ export async function getMystory(params: GetMyStoryParams = {}) {
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  const url = getApiUrl(`/api/member/stories?${q.toString()}`);
 
   console.log("📤 [Review API] Fetching myStory with token:", accessToken ? "✓" : "✗");
 

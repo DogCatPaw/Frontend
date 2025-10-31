@@ -1,5 +1,7 @@
 // src/lib/api/review/delete.ts
 
+import { getApiUrl } from "../config";
+
 export interface DeleteReviewResponse {
   isSuccess: boolean;
   status: string;
@@ -19,9 +21,7 @@ export async function deleteReview(reviewId: number, accessToken: string): Promi
   }
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/story/review/${encodeURIComponent(
-      String(reviewId)
-    )}`,
+    getApiUrl(`/api/story/review/${encodeURIComponent(String(reviewId))}`),
     {
       method: "DELETE",
       headers: {

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import type { ServerActionResponse } from "@/types";
+import { getApiUrl } from "@/lib/api/config";
 
 /**
  * 스토리 작성 Server Action
@@ -35,7 +36,7 @@ export async function createStory(
     });
 
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/story`,
+      getApiUrl('/story'),
       {
         method: "POST",
         body: uploadFormData,
@@ -79,7 +80,7 @@ export async function updateStory(
 
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/story/${storyId}`,
+      getApiUrl(`/story/${storyId}`),
       {
         method: "PUT",
         headers: {
@@ -122,7 +123,7 @@ export async function deleteStory(
 ): Promise<ServerActionResponse> {
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/story/${storyId}`,
+      getApiUrl(`/story/${storyId}`),
       {
         method: "DELETE",
       }

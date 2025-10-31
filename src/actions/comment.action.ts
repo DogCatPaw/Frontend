@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import type { ServerActionResponse } from "@/types";
+import { getApiUrl } from "@/lib/api/config";
 
 /**
  * 댓글 작성 Server Action
@@ -20,7 +21,7 @@ export async function createComment(
 
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/${postType}/${postId}/comment`,
+      getApiUrl(`/${postType}/${postId}/comment`),
       {
         method: "POST",
         headers: {
@@ -64,7 +65,7 @@ export async function deleteComment(
 ): Promise<ServerActionResponse> {
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/${postType}/${postId}/comment/${commentId}`,
+      getApiUrl(`/${postType}/${postId}/comment/${commentId}`),
       {
         method: "DELETE",
       }
@@ -101,7 +102,7 @@ export async function toggleLike(
 ): Promise<ServerActionResponse> {
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/${postType}/${postId}/like`,
+      getApiUrl(`/${postType}/${postId}/like`),
       {
         method: "POST",
       }

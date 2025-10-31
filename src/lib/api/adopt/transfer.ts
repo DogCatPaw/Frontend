@@ -10,7 +10,7 @@
  * 4. acceptTransfer() - New guardian submits signature + proof → Blockchain execution
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+import { getApiUrl } from "../config";
 
 // ==================== Type Definitions ====================
 
@@ -118,7 +118,7 @@ export async function initTransfer(
   newGuardianAddress: string,
   accessToken: string
 ): Promise<{ success: boolean; message?: string; error?: string }> {
-  const response = await fetch(`${API_BASE_URL}/pet/transfer/init/${adoptionId}`, {
+  const response = await fetch(getApiUrl(`/api/pet/transfer/init/${adoptionId}`), {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -165,7 +165,7 @@ export async function getTransferData(
   error?: string;
 }> {
   const response = await fetch(
-    `${API_BASE_URL}/pet/transfer/data/${adoptionId}`,
+    getApiUrl(`/api/pet/transfer/data/${adoptionId}`),
     {
       method: "GET",
       headers: {
@@ -197,7 +197,7 @@ export async function updateTransferStatus(
   accessToken: string
 ): Promise<{ success: boolean; message?: string; error?: string }> {
   const response = await fetch(
-    `${API_BASE_URL}/pet/transfer/update/${adoptionId}`,
+    getApiUrl(`/api/pet/transfer/update/${adoptionId}`),
     {
       method: "PATCH",
       headers: {
@@ -228,7 +228,7 @@ export async function cancelTransfer(
   accessToken: string
 ): Promise<{ success: boolean; message?: string; error?: string }> {
   const response = await fetch(
-    `${API_BASE_URL}/pet/transfer/cancel/${adoptionId}`,
+    getApiUrl(`/api/pet/transfer/cancel/${adoptionId}`),
     {
       method: "DELETE",
       headers: {
@@ -254,12 +254,14 @@ export async function prepareTransfer(
   request: PrepareTransferRequest,
   accessToken: string
 ): Promise<PrepareTransferResponse> {
+  const url = getApiUrl(`/api/pet/prepare-transfer/${encodeURIComponent(petDID)}`);
+
   console.log("🔗 prepareTransfer API call:");
-  console.log("  - URL:", `${API_BASE_URL}/pet/prepare-transfer/${encodeURIComponent(petDID)}`);
+  console.log("  - URL:", url);
   console.log("  - Request:", request);
 
   const response = await fetch(
-    `${API_BASE_URL}/pet/prepare-transfer/${encodeURIComponent(petDID)}`,
+    url,
     {
       method: "POST",
       headers: {
@@ -305,7 +307,7 @@ export async function verifyTransfer(
   accessToken: string
 ): Promise<VerifyTransferResponse> {
   const response = await fetch(
-    `${API_BASE_URL}/pet/verify-transfer/${encodeURIComponent(petDID)}`,
+    getApiUrl(`/api/pet/verify-transfer/${encodeURIComponent(petDID)}`),
     {
       method: "POST",
       headers: {
@@ -336,7 +338,7 @@ export async function acceptTransfer(
   accessToken: string
 ): Promise<AcceptTransferResponse> {
   const response = await fetch(
-    `${API_BASE_URL}/pet/accept-transfer/${encodeURIComponent(petDID)}/${adoptionId}`,
+    getApiUrl(`/api/pet/accept-transfer/${encodeURIComponent(petDID)}/${adoptionId}`),
     {
       method: "POST",
       headers: {

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import type { ServerActionResponse } from "@/types";
+import { getApiUrl } from "@/lib/api/config";
 
 /**
  * 입양 후기 작성 Server Action
@@ -37,7 +38,7 @@ export async function createReview(
     });
 
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/review`,
+      getApiUrl('/review'),
       {
         method: "POST",
         body: uploadFormData,
@@ -81,7 +82,7 @@ export async function updateReview(
 
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/review/${reviewId}`,
+      getApiUrl(`/review/${reviewId}`),
       {
         method: "PUT",
         headers: {
@@ -124,7 +125,7 @@ export async function deleteReview(
 ): Promise<ServerActionResponse> {
   try {
     const response = await fetch(
-      `${process.env.API_SERVER_URL || process.env.NEXT_PUBLIC_API_BASE_URL}/review/${reviewId}`,
+      getApiUrl(`/review/${reviewId}`),
       {
         method: "DELETE",
       }

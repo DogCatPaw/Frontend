@@ -1,5 +1,7 @@
 // src/lib/api/chat.ts
 
+import { getApiUrl } from "./config";
+
 export interface CreateChatRoomRequest {
   adoptId: number;
   roomName: string;
@@ -46,7 +48,7 @@ export async function createChatRoom(
   accessToken: string
 ): Promise<CreateChatRoomResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chat/room/create`,
+    getApiUrl('/api/chat/room/create'),
     {
       method: "POST",
       headers: {
@@ -72,7 +74,7 @@ export async function getChatRoomInfo(
   accessToken: string
 ): Promise<GetChatRoomInfoResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chat/room/card?roomId=${encodeURIComponent(roomId)}`,
+    getApiUrl(`/api/chat/room/card?roomId=${encodeURIComponent(roomId)}`),
     {
       method: "GET",
       headers: {
@@ -117,7 +119,7 @@ export async function getChatRoomList(
   accessToken: string
 ): Promise<GetChatRoomListResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chat/room/list`,
+    getApiUrl('/api/chat/room/list'),
     {
       method: "GET",
       headers: {
@@ -170,7 +172,7 @@ export async function getAdoptionInfoForChat(
   accessToken: string
 ): Promise<GetAdoptionInfoForChatResponse> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/chat/room/${encodeURIComponent(roomId)}/adoption`,
+    getApiUrl(`/api/chat/room/${encodeURIComponent(roomId)}/adoption`),
     {
       method: "GET",
       headers: {

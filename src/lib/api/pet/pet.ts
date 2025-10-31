@@ -1,3 +1,5 @@
+import { getApiUrl } from "../config";
+
 export type ServerGender = "FEMALE" | "MALE";
 
 export type ServerBreedCode =
@@ -56,7 +58,7 @@ export async function getPet() {
 
   console.log("📤 [Pet API] Fetching pets with token:", accessToken ? "✓" : "✗");
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/pet`, {
+  const res = await fetch(getApiUrl('/api/pet'), {
     method: "GET",
     headers: headers,
     next: { revalidate: 0 },

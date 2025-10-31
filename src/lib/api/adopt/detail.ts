@@ -1,5 +1,7 @@
 // src/lib/api/adopt/detail.ts
 
+import { getApiUrl } from "../config";
+
 // ---- 서버 응답 타입(스웨거 기준) ----
 export type ServerGender = "FEMALE" | "MALE";
 
@@ -85,9 +87,7 @@ export async function getAdoptionDetail(adoptId: number) {
   }
 
   const res = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_API_BASE_URL
-    }/api/adoption/detail/${encodeURIComponent(String(adoptId))}`,
+    getApiUrl(`/api/adoption/detail/${encodeURIComponent(String(adoptId))}`),
     { method: "GET", next: { revalidate: 0 } }
   );
 

@@ -1,5 +1,7 @@
 // src/lib/api/review/post.ts
 
+import { getApiUrl } from "../config";
+
 export interface PostReviewRequest {
   petId: number;
   title: string;
@@ -36,10 +38,6 @@ export async function postReview(
     throw new Error("walletAddress가 없습니다.");
   }
 
-  const url = `${
-    process.env.NEXT_PUBLIC_API_BASE_URL
-  }/api/story/review?walletAddress=${encodeURIComponent(walletAddress)}`;
-
   // Access Token 가져오기
   const accessToken = localStorage.getItem("accessToken") || "";
 
@@ -50,6 +48,8 @@ export async function postReview(
   if (accessToken) {
     headers["Authorization"] = `Bearer ${accessToken}`;
   }
+
+  const url = getApiUrl(`/api/story/review?walletAddress=${encodeURIComponent(walletAddress)}`);
 
   console.log("📤 [Review API] Creating review with token:", accessToken ? "✓" : "✗");
   console.log("📤 [Review API] URL:", url);

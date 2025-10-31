@@ -1,8 +1,7 @@
 import axios from "axios";
 import type { ApiResponse } from "@/types/api";
 import { Gender, Role } from "@/types/enums";
-
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+import { getApiUrl } from "./config";
 
 // ==================== Guardian Types ====================
 
@@ -146,7 +145,7 @@ export async function registerGuardian(
   console.log("📤 Sending to backend:", JSON.stringify(requestBody, null, 2));
 
   const response = await axios.post<RegisterGuardianResponse>(
-    `${API_BASE_URL}/api/guardian/register`,
+    getApiUrl('/api/guardian/register'),
     requestBody,
     {
       headers: {
@@ -171,7 +170,7 @@ export async function getGuardianInfo(
 ): Promise<GuardianInfo | null> {
   try {
     // Use the auth profile endpoint
-    const response = await axios.get(`${API_BASE_URL}/api/auth/profile`, {
+    const response = await axios.get(getApiUrl('/api/auth/profile'), {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

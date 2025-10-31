@@ -59,7 +59,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.topBar}>
-        <h2 className={styles.logo}>멍냥Paw🐾</h2>
+        <h2 className={styles.logo}>멍멍포🐾</h2>
         <nav className={styles.userNav}>
           {/* 로그인 상태가 아닐 때만 지갑 연결 버튼 표시 */}
           {!isAuthenticated && (
